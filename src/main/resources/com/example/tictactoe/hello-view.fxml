@@ -1,16 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+<VBox alignment="CENTER" prefHeight="500" prefWidth="500" spacing="20.0" stylesheets="@css/styles.css"
+      xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12"
       fx:controller="com.example.tictactoe.controller.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <BorderPane fx:id="pane2" stylesheets="@css/styles.css">
+        <left>
+            <Label text="Player 1" BorderPane.alignment="CENTER"/>
+        </left>
+        <right>
+            <Label text="Player 2" BorderPane.alignment="CENTER"/>
+        </right>
+        <center>
+            <GridPane alignment="CENTER" fx:id="pane3" stylesheets="@css/styles.css" gridLinesVisible="true">
+                <ImageView >
+                    <Image fx:id="pic1" url="@images/Circle.png"/>
+                </ImageView>
+
+                <ImageView GridPane.columnIndex="1">
+                    <Image url="@images/Circle.png"/>
+                </ImageView>
+
+                <ImageView GridPane.columnIndex="2">
+                    <Image url="@images/Circle.png"/>
+                </ImageView>
+
+                <ImageView GridPane.rowIndex="1">
+                    <Image url="@images/Circle.png"/>
+                </ImageView>
+
+                <ImageView GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Image url="@images/Circle.png"/>
+                </ImageView>
+
+                <ImageView GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <Image url="@images/Circle.png"/>
+                </ImageView>
+
+                <ImageView GridPane.rowIndex="2">
+                    <Image url="@images/Circle.png"/>
+                </ImageView>
+
+                <ImageView GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <Image url="@images/Circle.png"/>
+                </ImageView>
+
+                <ImageView GridPane.columnIndex="2" GridPane.rowIndex="2">
+                    <Image url="@images/Circle.png"/>
+                </ImageView>
+
+                <columnConstraints>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                </rowConstraints>
+            </GridPane>
+        </center>
+
+    </BorderPane>
+
 </VBox>

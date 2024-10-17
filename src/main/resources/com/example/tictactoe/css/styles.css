@@ -1,0 +1,20 @@
+.root {
+    -fx-border-color: RED;
+    -fx-border-width: 20;
+    -fx-font-size: 50;
+    -fx-font-family: Menlo;
+}
+
+#pic1 {
+    -fx-alignment: CENTER;
+}
+
+#pane2 {
+    -fx-border-color: GREEN;
+    -fx-border-width: 20;
+}
+
+#pane3 {
+    -fx-border-color: BLACK;
+    -fx-border-width: 20;
+}
