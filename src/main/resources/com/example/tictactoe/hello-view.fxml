@@ -1,72 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.Label?>
 
-<VBox alignment="CENTER" prefHeight="500" prefWidth="500" spacing="20.0" stylesheets="@css/styles.css"
-      xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12"
-      fx:controller="com.example.tictactoe.controller.HelloController">
+<HBox alignment="CENTER" spacing="20.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tictactoe.controller.HelloController">
 
     <BorderPane fx:id="pane2" stylesheets="@css/styles.css">
         <left>
-            <Label text="Player 1" BorderPane.alignment="CENTER"/>
+            <VBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+                <Label text="Player 1"/>
+                <Label text="Score: 0"/>
+            </VBox>
         </left>
         <right>
-            <Label text="Player 2" BorderPane.alignment="CENTER"/>
+            <VBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+                <Label text="Player 2"/>
+                <Label text="Score: 0"/>
+            </VBox>
         </right>
         <center>
-            <GridPane alignment="CENTER" fx:id="pane3" stylesheets="@css/styles.css" gridLinesVisible="true">
-                <ImageView >
-                    <Image fx:id="pic1" url="@images/Circle.png"/>
+            <GridPane fx:id="pane3" alignment="CENTER" gridLinesVisible="true" stylesheets="@css/styles.css">
+                <ImageView>
+                    <Image fx:id="pic1" url="@images/Circle.png" />
                 </ImageView>
 
                 <ImageView GridPane.columnIndex="1">
-                    <Image url="@images/Circle.png"/>
+                    <Image url="@images/Circle.png" />
                 </ImageView>
 
                 <ImageView GridPane.columnIndex="2">
-                    <Image url="@images/Circle.png"/>
+                    <Image url="@images/Circle.png" />
                 </ImageView>
 
                 <ImageView GridPane.rowIndex="1">
-                    <Image url="@images/Circle.png"/>
+                    <Image url="@images/Circle.png" />
                 </ImageView>
 
                 <ImageView GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <Image url="@images/Circle.png"/>
+                    <Image url="@images/Circle.png" />
                 </ImageView>
 
                 <ImageView GridPane.columnIndex="2" GridPane.rowIndex="1">
-                    <Image url="@images/Circle.png"/>
+                    <Image url="@images/Circle.png" />
                 </ImageView>
 
                 <ImageView GridPane.rowIndex="2">
-                    <Image url="@images/Circle.png"/>
+                    <Image url="@images/Circle.png" />
                 </ImageView>
 
                 <ImageView GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <Image url="@images/Circle.png"/>
+                    <Image url="@images/Circle.png" />
                 </ImageView>
 
                 <ImageView GridPane.columnIndex="2" GridPane.rowIndex="2">
-                    <Image url="@images/Circle.png"/>
+                    <Image url="@images/Circle.png" />
                 </ImageView>
 
                 <columnConstraints>
-                    <ColumnConstraints/>
-                    <ColumnConstraints/>
-                    <ColumnConstraints/>
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints/>
-                    <RowConstraints/>
-                    <RowConstraints/>
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
                 </rowConstraints>
             </GridPane>
         </center>
 
     </BorderPane>
 
-</VBox>
+</HBox>
