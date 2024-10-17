@@ -12,13 +12,13 @@
         <left>
             <VBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
                 <Label text="Player 1"/>
-                <Label text="Score: 0"/>
+                <Label text="${controller.model.scorePlayer1}"/>
             </VBox>
         </left>
         <right>
             <VBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
                 <Label text="Player 2"/>
-                <Label text="Score: 0"/>
+                <Label text="${controller.model.scorePlayer2}"/>
             </VBox>
         </right>
         <center>
@@ -26,36 +26,28 @@
                 <ImageView image="${controller.model.firstPosition}" onMouseClicked="#positionOneClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="1">
-                    <Image url="@images/Circle.png"/>
+                <ImageView GridPane.columnIndex="1" image="${controller.model.secondPosition}" onMouseClicked="#positionTwoClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="2">
-                    <Image url="@images/Circle.png"/>
+                <ImageView GridPane.columnIndex="2" image="${controller.model.thirdPosition}" onMouseClicked="#positionThreeClicked">
                 </ImageView>
 
-                <ImageView GridPane.rowIndex="1">
-                    <Image url="@images/Circle.png"/>
+                <ImageView GridPane.rowIndex="1" image="${controller.model.fourthPosition}" onMouseClicked="#positionFourClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <Image url="@images/Circle.png"/>
+                <ImageView GridPane.columnIndex="1" GridPane.rowIndex="1" image="${controller.model.fifthPosition}" onMouseClicked="#positionFiveClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="2" GridPane.rowIndex="1">
-                    <Image url="@images/Circle.png"/>
+                <ImageView GridPane.columnIndex="2" GridPane.rowIndex="1" image="${controller.model.sixthPosition}" onMouseClicked="#positionSixthClicked">
                 </ImageView>
 
-                <ImageView GridPane.rowIndex="2">
-                    <Image url="@images/Circle.png"/>
+                <ImageView GridPane.rowIndex="2" image="${controller.model.seventhPosition}" onMouseClicked="#positionSeventhClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <Image url="@images/Circle.png"/>
+                <ImageView GridPane.columnIndex="1" GridPane.rowIndex="2" image="${controller.model.eighthPosition}" onMouseClicked="#positionEighthClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="2" GridPane.rowIndex="2">
-                    <Image url="@images/Circle.png"/>
+                <ImageView GridPane.columnIndex="2" GridPane.rowIndex="2" image="${controller.model.ninthPosition}" onMouseClicked="#positionNinthClicked">
                 </ImageView>
 
                 <columnConstraints>

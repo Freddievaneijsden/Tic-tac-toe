@@ -3,15 +3,44 @@ package com.example.tictactoe.model;
 import com.example.tictactoe.Position;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
 
 public class Model {
 
-    private int score = 0;
+    private int score1 = 0;
+    private int score2 = 0;
+    private StringProperty scorePlayer1 = new SimpleStringProperty("0 points");
+    private StringProperty scorePlayer2 = new SimpleStringProperty("0 points");
     Image circle;
     Image cross;
     Image empty;
+
+    public String getScorePlayer1() {
+        return scorePlayer1.get();
+    }
+
+    public StringProperty scorePlayer1Property() {
+        return scorePlayer1;
+    }
+
+    public void setScorePlayer1(String scorePlayer1) {
+        this.scorePlayer1.set(scorePlayer1);
+    }
+
+    public String getScorePlayer2() {
+        return scorePlayer2.get();
+    }
+
+    public StringProperty scorePlayer2Property() {
+        return scorePlayer2;
+    }
+
+    public void setScorePlayer2(String scorePlayer2) {
+        this.scorePlayer2.set(scorePlayer2);
+    }
 
     ObjectProperty<Image> firstPosition;
     ObjectProperty<Image> secondPosition;
@@ -24,18 +53,18 @@ public class Model {
     ObjectProperty<Image> ninthPosition;
 
     public Model() {
-        firstPosition = new SimpleObjectProperty<>();
-        secondPosition = new SimpleObjectProperty<>();
-        thirdPosition = new SimpleObjectProperty<>();
-        fourthPosition = new SimpleObjectProperty<>();
-        fifthPosition = new SimpleObjectProperty<>();
-        sixthPosition = new SimpleObjectProperty<>();
-        seventhPosition = new SimpleObjectProperty<>();
-        eighthPosition = new SimpleObjectProperty<>();
-        ninthPosition = new SimpleObjectProperty<>();
         circle = new Image(getClass().getResource("/com/example/tictactoe/images/Circle.png").toExternalForm());
         cross = new Image(getClass().getResource("/com/example/tictactoe/images/Cross.png").toExternalForm());
         empty = new Image(getClass().getResource("/com/example/tictactoe/images/Empty.png").toExternalForm());
+        firstPosition = new SimpleObjectProperty<>(empty);
+        secondPosition = new SimpleObjectProperty<>(empty);
+        thirdPosition = new SimpleObjectProperty<>(empty);
+        fourthPosition = new SimpleObjectProperty<>(empty);
+        fifthPosition = new SimpleObjectProperty<>(empty);
+        sixthPosition = new SimpleObjectProperty<>(empty);
+        seventhPosition = new SimpleObjectProperty<>(empty);
+        eighthPosition = new SimpleObjectProperty<>(empty);
+        ninthPosition = new SimpleObjectProperty<>(empty);
     }
 
     public Image getFirstPosition() {
@@ -147,5 +176,23 @@ public class Model {
     }
 
     public void selectedPosition(Position position) {
+        if (position == Position.FIRST && getFirstPosition() == empty)
+            setFirstPosition(cross);
+        else if (position == Position.SECOND && getSecondPosition() == empty)
+            setSecondPosition(cross);
+        else if (position == Position.THIRD && getThirdPosition() == empty)
+            setThirdPosition(cross);
+        else if (position == Position.FOURTH && getFourthPosition() == empty)
+            setFourthPosition(cross);
+        else if (position == Position.FIFTH && getFifthPosition() == empty)
+            setFifthPosition(cross);
+        else if (position == Position.SIXTH && getSixthPosition() == empty)
+            setSixthPosition(cross);
+        else if (position == Position.SEVENTH && getSeventhPosition() == empty)
+            setSeventhPosition(cross);
+        else if (position == Position.EIGHTH && getEighthPosition() == empty)
+            setEighthPosition(cross);
+        else if (position == Position.NINTH && getNinthPosition() == empty)
+            setNinthPosition(cross);
     }
 }

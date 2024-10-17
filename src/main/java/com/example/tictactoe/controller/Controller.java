@@ -2,7 +2,10 @@ package com.example.tictactoe.controller;
 
 import com.example.tictactoe.Position;
 import com.example.tictactoe.model.Model;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 import javax.print.attribute.standard.PDLOverrideSupported;
 
@@ -14,6 +17,7 @@ public class Controller {
 
     public void initialize() {
     }
+
 
     public Model getModel() {
         return model;
