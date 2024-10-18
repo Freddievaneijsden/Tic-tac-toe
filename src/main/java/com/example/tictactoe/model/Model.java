@@ -194,5 +194,20 @@ public class Model {
             setEighthPosition(cross);
         else if (position == Position.NINTH && getNinthPosition() == empty)
             setNinthPosition(cross);
+
+       // setScorePlayer1(score1 + " points");
+    }
+
+    public void changePlayer() {
+        
+    }
+
+    public boolean isWinning() {
+        if (getFirstPosition() == cross && getSecondPosition() == cross && getThirdPosition() == cross) {
+            score1 ++;
+            setScorePlayer1(score1 + " points");
+            return true;
+        }
+        return false;
     }
 }
