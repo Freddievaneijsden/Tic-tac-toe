@@ -210,4 +210,16 @@ public class Model {
         }
         return false;
     }
+
+    public void resetGame () {
+        setFirstPosition(empty);
+        setSecondPosition(empty);
+        setThirdPosition(empty);
+        setFourthPosition(empty);
+        setFifthPosition(empty);
+        setSixthPosition(empty);
+        setSeventhPosition(empty);
+        setEighthPosition(empty);
+        setNinthPosition(empty);
+    }
 }

@@ -23,6 +23,7 @@ public class Controller {
         // Check if the move resulted in a winning condition
         if (model.isWinning()) {
             System.out.println("We have a winner!");
+            model.resetGame();
         }
     }
 
