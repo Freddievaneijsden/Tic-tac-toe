@@ -1,5 +1,7 @@
 package com.example.tictactoe.model;
 
+import com.example.tictactoe.Player;
+import com.example.tictactoe.Players;
 import com.example.tictactoe.Position;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -7,13 +9,21 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static com.example.tictactoe.Players.*;
+
 
 public class Model {
 
     private int score1 = 0;
     private int score2 = 0;
-    private StringProperty scorePlayer1 = new SimpleStringProperty("0 points");
-    private StringProperty scorePlayer2 = new SimpleStringProperty("0 points");
+    private final StringProperty scorePlayer1 = new SimpleStringProperty("0 points");
+    private final StringProperty scorePlayer2 = new SimpleStringProperty("0 points");
+    private final List<Players> players = new ArrayList<>();
+    private Players currentPlayer;
     Image circle;
     Image cross;
     Image empty;
@@ -65,6 +75,7 @@ public class Model {
         seventhPosition = new SimpleObjectProperty<>(empty);
         eighthPosition = new SimpleObjectProperty<>(empty);
         ninthPosition = new SimpleObjectProperty<>(empty);
+        currentPlayer = PLAYER1;
     }
 
     public Image getFirstPosition() {
@@ -176,31 +187,117 @@ public class Model {
     }
 
     public void selectedPosition(Position position) {
-        if (position == Position.FIRST && getFirstPosition() == empty)
-            setFirstPosition(cross);
-        else if (position == Position.SECOND && getSecondPosition() == empty)
-            setSecondPosition(cross);
-        else if (position == Position.THIRD && getThirdPosition() == empty)
-            setThirdPosition(cross);
-        else if (position == Position.FOURTH && getFourthPosition() == empty)
-            setFourthPosition(cross);
-        else if (position == Position.FIFTH && getFifthPosition() == empty)
-            setFifthPosition(cross);
-        else if (position == Position.SIXTH && getSixthPosition() == empty)
-            setSixthPosition(cross);
-        else if (position == Position.SEVENTH && getSeventhPosition() == empty)
-            setSeventhPosition(cross);
-        else if (position == Position.EIGHTH && getEighthPosition() == empty)
-            setEighthPosition(cross);
-        else if (position == Position.NINTH && getNinthPosition() == empty)
-            setNinthPosition(cross);
-
+        if (position == Position.FIRST && getFirstPosition() == empty) {
+            switch (currentPlayer) {
+                case PLAYER1 -> {
+                    setFirstPosition(cross);
+                    currentPlayer = NPC;
+                }
+                case NPC -> {
+                    setFirstPosition(circle);
+                    currentPlayer = PLAYER1;
+                }
+            }
+        }
+        else if (position == Position.SECOND && getSecondPosition() == empty) {
+            switch (currentPlayer) {
+                case PLAYER1 -> {
+                    setSecondPosition(cross);
+                    currentPlayer = NPC;
+                }
+                case NPC -> {
+                    setSecondPosition(circle);
+                    currentPlayer = PLAYER1;
+                }
+            }
+        }
+        else if (position == Position.THIRD && getThirdPosition() == empty) {
+            switch (currentPlayer) {
+                case PLAYER1 -> {
+                    setThirdPosition(cross);
+                    currentPlayer = NPC;
+                }
+                case NPC -> {
+                    setThirdPosition(circle);
+                    currentPlayer = PLAYER1;
+                }
+            }
+        }
+        else if (position == Position.FOURTH && getFourthPosition() == empty) {
+            switch (currentPlayer) {
+                case PLAYER1 -> {
+                    setFourthPosition(cross);
+                    currentPlayer = NPC;
+                }
+                case NPC -> {
+                    setFourthPosition(circle);
+                    currentPlayer = PLAYER1;
+                }
+            }
+        }
+        else if (position == Position.FIFTH && getFifthPosition() == empty) {
+            switch (currentPlayer) {
+                case PLAYER1 -> {
+                    setFifthPosition(cross);
+                    currentPlayer = NPC;
+                }
+                case NPC -> {
+                    setFifthPosition(circle);
+                    currentPlayer = PLAYER1;
+                }
+            }
+        }
+        else if (position == Position.SIXTH && getSixthPosition() == empty){
+            switch (currentPlayer) {
+                case PLAYER1 -> {
+                    setSixthPosition(cross);
+                    currentPlayer = NPC;
+                }
+                case NPC -> {
+                    setSixthPosition(circle);
+                    currentPlayer = PLAYER1;
+                }
+            }
+        }
+        else if (position == Position.SEVENTH && getSeventhPosition() == empty){
+            switch (currentPlayer) {
+                case PLAYER1 -> {
+                    setSeventhPosition(cross);
+                    currentPlayer = NPC;
+                }
+                case NPC -> {
+                    setSeventhPosition(circle);
+                    currentPlayer = PLAYER1;
+                }
+            }
+        }
+        else if (position == Position.EIGHTH && getEighthPosition() == empty){
+            switch (currentPlayer) {
+                case PLAYER1 -> {
+                    setEighthPosition(cross);
+                    currentPlayer = NPC;
+                }
+                case NPC -> {
+                    setEighthPosition(circle);
+                    currentPlayer = PLAYER1;
+                }
+            }
+        }
+        else if (position == Position.NINTH && getNinthPosition() == empty){
+            switch (currentPlayer) {
+                case PLAYER1 -> {
+                    setNinthPosition(cross);
+                    currentPlayer = NPC;
+                }
+                case NPC -> {
+                    setNinthPosition(circle);
+                    currentPlayer = PLAYER1;
+                }
+            }
+        }
        // setScorePlayer1(score1 + " points");
     }
 
-    public void changePlayer() {
-        
-    }
 
     public boolean isWinning() {
         if (getFirstPosition() == cross && getSecondPosition() == cross && getThirdPosition() == cross) {
