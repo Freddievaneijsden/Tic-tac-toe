@@ -2,30 +2,30 @@ package com.example.tictactoe.controller;
 
 import com.example.tictactoe.Position;
 import com.example.tictactoe.model.Model;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 import static com.example.tictactoe.Position.*;
 
 public class Controller {
 
     public void initialize() {
+        startRandomEvent();
     }
 
-    private void handleMove(Position position) {
-        model.selectedPosition(position);
-//        model.printAvailablePositions();
-        if (!model.getAvailablePositions().isEmpty()) {
-            model.npcMove();
-        }
-
-        // Check if the move resulted in a winning condition
-        if (model.isWinning()) {
-            System.out.println("We have a winner!");
-            model.resetGame();
-        } else if (model.getMoveCount() == 9) {
-            System.out.println("Drawn!");
-            model.resetGame();
-        }
+    private void startRandomEvent () {
+        Timeline timeLine = new Timeline(   //tid som går
+                new KeyFrame(
+                        Duration.millis(Math.random() * 3000),
+                        (ActionEvent event) -> {
+                            model.npcMove();
+                            Controller.this.startRandomEvent();}
+                )
+        );
+        timeLine.play();
     }
 
     Model model = new Model();
@@ -35,38 +35,38 @@ public class Controller {
     }
 
     public void positionOneClicked(MouseEvent mouseEvent) {
-        handleMove(FIRST);
+        model.selectedPosition(FIRST);
     }
 
     public void positionTwoClicked(MouseEvent mouseEvent) {
-        handleMove(SECOND);
+        model.selectedPosition(SECOND);
     }
 
     public void positionThreeClicked(MouseEvent mouseEvent) {
-        handleMove(THIRD);
+        model.selectedPosition(THIRD);
     }
 
     public void positionFourClicked(MouseEvent mouseEvent) {
-        handleMove(FOURTH);
+        model.selectedPosition(FOURTH);
     }
 
     public void positionFiveClicked(MouseEvent mouseEvent) {
-        handleMove(FIFTH);
+        model.selectedPosition(FIFTH);
     }
 
     public void positionSixthClicked(MouseEvent mouseEvent) {
-        handleMove(SIXTH);
+        model.selectedPosition(SIXTH);
     }
 
     public void positionSeventhClicked(MouseEvent mouseEvent) {
-        handleMove(SEVENTH);
+        model.selectedPosition(SEVENTH);
     }
 
     public void positionEighthClicked(MouseEvent mouseEvent) {
-        handleMove(EIGHTH);
+        model.selectedPosition(EIGHTH);
     }
 
     public void positionNinthClicked(MouseEvent mouseEvent) {
-        handleMove(NINTH);
+        model.selectedPosition(NINTH);
     }
 }

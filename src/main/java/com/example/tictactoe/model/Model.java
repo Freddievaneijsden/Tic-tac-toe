@@ -333,6 +333,14 @@ public class Model {
             }
         }
         availablePositions.remove(position);
+
+        if (isWinning()) {
+            System.out.println("We have a winner!");
+            resetGame();
+        } else if (getMoveCount() == 9) {
+            System.out.println("Drawn!");
+            resetGame();
+        }
        // setScorePlayer1(score1 + " points");
     }
 
