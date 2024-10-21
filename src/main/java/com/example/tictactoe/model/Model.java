@@ -7,27 +7,33 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static com.example.tictactoe.Players.*;
+import static com.example.tictactoe.Position.*;
 
 
 public class Model {
+    Random random  = new Random();
 
     private int score1 = 0;
     private int score2 = 0;
     private final StringProperty scorePlayer1 = new SimpleStringProperty("0 points");
     private final StringProperty scorePlayer2 = new SimpleStringProperty("0 points");
 //    private final List<Players> players = new ArrayList<>();
+    private List<Position> availablePositions = new ArrayList<>();
     private Players currentPlayer;
     private int moveCount = 0;
     Image circle;
     Image cross;
     Image empty;
+
+    public List<Position> getAvailablePositions() {
+        return availablePositions;
+    }
 
     public int getMoveCount() {
         return moveCount;
@@ -81,6 +87,7 @@ public class Model {
         eighthPosition = new SimpleObjectProperty<>(empty);
         ninthPosition = new SimpleObjectProperty<>(empty);
         currentPlayer = PLAYER1;
+        availablePositions.addAll(Arrays.asList(FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINTH));
     }
 
     public Image getFirstPosition() {
@@ -191,8 +198,25 @@ public class Model {
         this.ninthPosition.set(ninthPosition);
     }
 
+    public Position npcRandomPosition() {
+        Position randomPosition = availablePositions.get(random.nextInt(availablePositions.size()));
+        availablePositions.remove(randomPosition);
+        return randomPosition;
+    }
+
+    public void npcMove () {
+        if (currentPlayer == NPC) {
+            selectedPosition(npcRandomPosition());
+        }
+    }
+
+//    public void printAvailablePositions() {
+//        System.out.println(availablePositions);
+//    }
+
     public void selectedPosition(Position position) {
-        if (position == Position.FIRST && getFirstPosition() == empty) {
+        if (position == FIRST && getFirstPosition() == empty) {
+            moveCount ++;
             switch (currentPlayer) {
                 case PLAYER1 -> {
                     setFirstPosition(cross);
@@ -204,7 +228,8 @@ public class Model {
                 }
             }
         }
-        else if (position == Position.SECOND && getSecondPosition() == empty) {
+        else if (position == SECOND && getSecondPosition() == empty) {
+            moveCount ++;
             switch (currentPlayer) {
                 case PLAYER1 -> {
                     setSecondPosition(cross);
@@ -216,7 +241,8 @@ public class Model {
                 }
             }
         }
-        else if (position == Position.THIRD && getThirdPosition() == empty) {
+        else if (position == THIRD && getThirdPosition() == empty) {
+            moveCount ++;
             switch (currentPlayer) {
                 case PLAYER1 -> {
                     setThirdPosition(cross);
@@ -228,7 +254,8 @@ public class Model {
                 }
             }
         }
-        else if (position == Position.FOURTH && getFourthPosition() == empty) {
+        else if (position == FOURTH && getFourthPosition() == empty) {
+            moveCount ++;
             switch (currentPlayer) {
                 case PLAYER1 -> {
                     setFourthPosition(cross);
@@ -240,7 +267,8 @@ public class Model {
                 }
             }
         }
-        else if (position == Position.FIFTH && getFifthPosition() == empty) {
+        else if (position == FIFTH && getFifthPosition() == empty) {
+            moveCount ++;
             switch (currentPlayer) {
                 case PLAYER1 -> {
                     setFifthPosition(cross);
@@ -252,7 +280,8 @@ public class Model {
                 }
             }
         }
-        else if (position == Position.SIXTH && getSixthPosition() == empty){
+        else if (position == SIXTH && getSixthPosition() == empty){
+            moveCount ++;
             switch (currentPlayer) {
                 case PLAYER1 -> {
                     setSixthPosition(cross);
@@ -264,7 +293,8 @@ public class Model {
                 }
             }
         }
-        else if (position == Position.SEVENTH && getSeventhPosition() == empty){
+        else if (position == SEVENTH && getSeventhPosition() == empty){
+            moveCount ++;
             switch (currentPlayer) {
                 case PLAYER1 -> {
                     setSeventhPosition(cross);
@@ -276,7 +306,8 @@ public class Model {
                 }
             }
         }
-        else if (position == Position.EIGHTH && getEighthPosition() == empty){
+        else if (position == EIGHTH && getEighthPosition() == empty){
+            moveCount ++;
             switch (currentPlayer) {
                 case PLAYER1 -> {
                     setEighthPosition(cross);
@@ -288,7 +319,8 @@ public class Model {
                 }
             }
         }
-        else if (position == Position.NINTH && getNinthPosition() == empty){
+        else if (position == NINTH && getNinthPosition() == empty){
+            moveCount ++;
             switch (currentPlayer) {
                 case PLAYER1 -> {
                     setNinthPosition(cross);
@@ -300,7 +332,7 @@ public class Model {
                 }
             }
         }
-        moveCount ++;
+        availablePositions.remove(position);
        // setScorePlayer1(score1 + " points");
     }
 
@@ -364,5 +396,8 @@ public class Model {
         setEighthPosition(empty);
         setNinthPosition(empty);
         moveCount = 0;
+        availablePositions.addAll(Arrays.asList(FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINTH));
+        currentPlayer = PLAYER1;
+
     }
 }

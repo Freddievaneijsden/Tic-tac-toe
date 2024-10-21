@@ -2,13 +2,7 @@ package com.example.tictactoe.controller;
 
 import com.example.tictactoe.Position;
 import com.example.tictactoe.model.Model;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
-
-import javax.print.attribute.standard.PDLOverrideSupported;
 
 import static com.example.tictactoe.Position.*;
 
@@ -19,13 +13,16 @@ public class Controller {
 
     private void handleMove(Position position) {
         model.selectedPosition(position);
+//        model.printAvailablePositions();
+        if (!model.getAvailablePositions().isEmpty()) {
+            model.npcMove();
+        }
 
         // Check if the move resulted in a winning condition
         if (model.isWinning()) {
             System.out.println("We have a winner!");
             model.resetGame();
-        }
-        else if (model.getMoveCount() == 9) {
+        } else if (model.getMoveCount() == 9) {
             System.out.println("Drawn!");
             model.resetGame();
         }
