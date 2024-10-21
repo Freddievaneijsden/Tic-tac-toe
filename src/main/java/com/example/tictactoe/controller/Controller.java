@@ -18,11 +18,15 @@ public class Controller {
     }
 
     private void handleMove(Position position) {
-        model.selectedPosition(position); // Register the move
+        model.selectedPosition(position);
 
         // Check if the move resulted in a winning condition
         if (model.isWinning()) {
             System.out.println("We have a winner!");
+            model.resetGame();
+        }
+        else if (model.getMoveCount() == 9) {
+            System.out.println("Drawn!");
             model.resetGame();
         }
     }
@@ -34,41 +38,38 @@ public class Controller {
     }
 
     public void positionOneClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(FIRST);
         handleMove(FIRST);
     }
 
     public void positionTwoClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(SECOND);
         handleMove(SECOND);
     }
 
     public void positionThreeClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(THIRD);
         handleMove(THIRD);
     }
 
     public void positionFourClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(FOURTH);
+        handleMove(FOURTH);
     }
 
     public void positionFiveClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(FIFTH);
+        handleMove(FIFTH);
     }
 
     public void positionSixthClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(SIXTH);
+        handleMove(SIXTH);
     }
 
     public void positionSeventhClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(SEVENTH);
+        handleMove(SEVENTH);
     }
 
     public void positionEighthClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(EIGHTH);
+        handleMove(EIGHTH);
     }
 
     public void positionNinthClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(NINTH);
+        handleMove(NINTH);
     }
 }
