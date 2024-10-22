@@ -1,13 +1,11 @@
 package com.example.tictactoe.model;
 
-import com.example.tictactoe.Player;
 import com.example.tictactoe.Players;
 import com.example.tictactoe.Position;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 
 import java.util.*;
@@ -23,7 +21,7 @@ public class Model {
     private int score2 = 0;
     private final StringProperty scorePlayer1 = new SimpleStringProperty("0 points");
     private final StringProperty scorePlayer2 = new SimpleStringProperty("0 points");
-//    private final List<Players> players = new ArrayList<>();
+    private StringProperty result = new SimpleStringProperty("");
     private List<Position> availablePositions = new ArrayList<>();
     private Players currentPlayer;
     private int moveCount = 0;
@@ -31,8 +29,24 @@ public class Model {
     Image cross;
     Image empty;
 
+    public String getResult() {
+        return result.get();
+    }
+
+    public StringProperty resultProperty() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result.set(result);
+    }
+
     public List<Position> getAvailablePositions() {
         return availablePositions;
+    }
+
+    public Players getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public int getMoveCount() {
@@ -335,13 +349,12 @@ public class Model {
         availablePositions.remove(position);
 
         if (isWinning()) {
-            System.out.println("We have a winner!");
             resetGame();
-        } else if (getMoveCount() == 9) {
-            System.out.println("Drawn!");
-            resetGame();
-        }
-       // setScorePlayer1(score1 + " points");
+            }
+//        } else if (getMoveCount() == 9) {
+//            setResult("Drawn!");
+//            resetGame();
+//        }
     }
 
 
@@ -349,11 +362,17 @@ public class Model {
         if (checkCrossRows() || checkCrossColumns() || checkCrossDiagonal()) {
             score1 ++;
             setScorePlayer1(score1 + " points");
+            setResult("Player 1 Wins!");
             return true;
         }
         else if (checkCircleRows() || checkCircleColumns() || checkCircleDiagonal()) {
             score2 ++;
             setScorePlayer2(score2 + " points");
+            setResult("Player 2 Wins!");
+            return true;
+        }
+        else if (getMoveCount() == 9) {
+            setResult("Drawn!");
             return true;
         }
         return false;

@@ -9,6 +9,11 @@
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tictactoe.controller.Controller">
 
     <BorderPane fx:id="pane2" stylesheets="@css/styles.css">
+        <top>
+            <VBox alignment="CENTER">
+                <Label text="${controller.model.result}"/>
+            </VBox>
+        </top>
         <left>
             <VBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
                 <Label text="Player 1"/>
