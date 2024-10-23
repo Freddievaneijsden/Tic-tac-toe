@@ -358,13 +358,13 @@ public class Model {
     }
 
     public boolean isWinning () {
-        if (checkCrossRows() || checkCrossColumns() || checkCrossDiagonal()) {
+        if (isCross()) {
             score1 ++;
             setScorePlayer1(score1 + " points");
             setResult("Player 1 Wins!");
             return true;
         }
-        else if (checkCircleRows() || checkCircleColumns() || checkCircleDiagonal()) {
+        else if (isCircle()) {
             score2 ++;
             setScorePlayer2(score2 + " points");
             setResult("Player 2 Wins!");
@@ -377,38 +377,37 @@ public class Model {
         return false;
     }
 
-    private boolean checkCircleColumns() {
-        return (getFirstPosition() == circle && getFourthPosition() == circle && getSeventhPosition() == circle)
-                || (getSecondPosition() == circle && getFifthPosition() == circle && getEighthPosition() == circle)
-                || (getThirdPosition() == circle && getSixthPosition() == circle && getNinthPosition() == circle);
+    public boolean isCross() {
+        if (checkRows(cross))
+            return true;
+        else if (checkColumns(cross))
+            return true;
+        else return checkDiagonal(cross);
     }
 
-    private boolean checkCrossColumns() {
-        return (getFirstPosition() == cross && getFourthPosition() == cross && getSeventhPosition() == cross)
-                || (getSecondPosition() == cross && getFifthPosition() == cross && getEighthPosition() == cross)
-                || (getThirdPosition() == cross && getSixthPosition() == cross && getNinthPosition() == cross);
+    public boolean isCircle() {
+        if (checkRows(circle))
+            return true;
+        else if (checkColumns(circle))
+            return true;
+        else return checkDiagonal(circle);
     }
 
-    private boolean checkCircleRows() {
-        return (getFirstPosition() == circle && getSecondPosition() == circle && getThirdPosition() == circle)
-                || (getFourthPosition() == circle && getFifthPosition() == circle && getSixthPosition() == circle)
-                || (getSeventhPosition() == circle && getEighthPosition() == circle && getNinthPosition() == circle);
+    private boolean checkRows(Image image) {
+        return (getFirstPosition() == image && getSecondPosition() == image && getThirdPosition() == image)
+                || (getFourthPosition() == image && getFifthPosition() == image && getSixthPosition() == image)
+                || (getSeventhPosition() == image && getEighthPosition() == image && getNinthPosition() == image);
     }
 
-    private boolean checkCrossRows() {
-        return (getFirstPosition() == cross && getSecondPosition() == cross && getThirdPosition() == cross)
-                || (getFourthPosition() == cross && getFifthPosition() == cross && getSixthPosition() == cross)
-                || (getSeventhPosition() == cross && getEighthPosition() == cross && getNinthPosition() == cross);
+    private boolean checkColumns(Image image) {
+        return (getFirstPosition() == image && getFourthPosition() == image && getSeventhPosition() == image)
+                || (getSecondPosition() == image && getFifthPosition() == image && getEighthPosition() == image)
+                || (getThirdPosition() == image && getSixthPosition() == image && getNinthPosition() == image);
     }
 
-    private boolean checkCrossDiagonal () {
-        return ((getFirstPosition() == cross && getFifthPosition() == cross && getNinthPosition() == cross)
-        || (getThirdPosition() == cross && getFifthPosition() == cross && getSeventhPosition() == cross));
-    }
-
-    private boolean checkCircleDiagonal () {
-        return ((getFirstPosition() == circle && getFifthPosition() == circle && getNinthPosition() == circle)
-                || (getThirdPosition() == circle && getFifthPosition() == circle && getSeventhPosition() == circle));
+    private boolean checkDiagonal(Image image) {
+        return ((getFirstPosition() == image && getFifthPosition() == image && getNinthPosition() == image)
+        || (getThirdPosition() == image && getFifthPosition() == image && getSeventhPosition() == image));
     }
 
     public void resetGame () {
