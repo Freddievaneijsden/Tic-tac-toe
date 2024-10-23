@@ -1,5 +1,6 @@
 package com.example.tictactoe.controller;
 
+import com.example.tictactoe.Players;
 import com.example.tictactoe.Position;
 import com.example.tictactoe.model.Model;
 import javafx.animation.KeyFrame;
@@ -8,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
+import static com.example.tictactoe.Players.*;
 import static com.example.tictactoe.Position.*;
 
 public class Controller {
@@ -16,13 +18,14 @@ public class Controller {
         startRandomEvent();
     }
 
-    private void startRandomEvent () {
+    private void startRandomEvent() {
         Timeline timeLine = new Timeline(   //tid som går
                 new KeyFrame(
                         Duration.millis(Math.random() * 3000),
                         (ActionEvent event) -> {
                             model.npcMove();
-                            Controller.this.startRandomEvent();}
+                            Controller.this.startRandomEvent();
+                        }
                 )
         );
         timeLine.play();
@@ -35,38 +38,56 @@ public class Controller {
     }
 
     public void positionOneClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(FIRST);
+        if (model.getCurrentPlayer().equals(PLAYER1)) {
+            model.selectedPosition(FIRST);
+        }
     }
 
     public void positionTwoClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(SECOND);
+        if (model.getCurrentPlayer().equals(PLAYER1)) {
+            model.selectedPosition(SECOND);
+        }
     }
 
     public void positionThreeClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(THIRD);
+        if (model.getCurrentPlayer().equals(PLAYER1)) {
+            model.selectedPosition(THIRD);
+        }
     }
 
     public void positionFourClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(FOURTH);
+        if (model.getCurrentPlayer().equals(PLAYER1)) {
+            model.selectedPosition(FOURTH);
+        }
     }
 
     public void positionFiveClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(FIFTH);
+        if (model.getCurrentPlayer().equals(PLAYER1)) {
+            model.selectedPosition(FIFTH);
+        }
     }
 
     public void positionSixthClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(SIXTH);
+        if (model.getCurrentPlayer().equals(PLAYER1)) {
+            model.selectedPosition(SIXTH);
+        }
     }
 
     public void positionSeventhClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(SEVENTH);
+        if (model.getCurrentPlayer().equals(PLAYER1)) {
+            model.selectedPosition(SEVENTH);
+        }
     }
 
     public void positionEighthClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(EIGHTH);
+        if (model.getCurrentPlayer().equals(PLAYER1)) {
+            model.selectedPosition(EIGHTH);
+        }
     }
 
     public void positionNinthClicked(MouseEvent mouseEvent) {
-        model.selectedPosition(NINTH);
+        if (model.getCurrentPlayer().equals(PLAYER1)) {
+            model.selectedPosition(NINTH);
+        }
     }
 }
