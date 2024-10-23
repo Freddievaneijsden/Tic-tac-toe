@@ -352,9 +352,7 @@ public class Model {
         }
         availablePositions.remove(position);
 
-        if (isWinning()) {
-            resetGame();
-            }
+        isWinning();
     }
 
     public boolean isWinning () {
@@ -411,6 +409,7 @@ public class Model {
     }
 
     public void resetGame () {
+
         setFirstPosition(empty);
         setSecondPosition(empty);
         setThirdPosition(empty);

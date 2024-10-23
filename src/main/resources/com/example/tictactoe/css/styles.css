@@ -15,3 +15,8 @@
 #pane3 {
     -fx-border-width: 20;
 }
+
+#restart {
+    -fx-font-size: 20;
+    -fx-border-color: GREEN;
+}

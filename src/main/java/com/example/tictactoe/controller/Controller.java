@@ -37,6 +37,10 @@ public class Controller {
         return model;
     }
 
+    public void restartClicked (MouseEvent mouseEvent) {
+        model.resetGame();
+    }
+
     public void positionOneClicked(MouseEvent mouseEvent) {
         if (model.getCurrentPlayer().equals(PLAYER1)) {
             model.selectedPosition(FIRST);

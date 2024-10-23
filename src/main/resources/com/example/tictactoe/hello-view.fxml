@@ -26,6 +26,11 @@
                 <Label text="${controller.model.scorePlayer2}"/>
             </VBox>
         </right>
+        <bottom>
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                <Button fx:id="restart" text="Restart" onMouseClicked="#restartClicked"/>
+            </VBox>
+        </bottom>
         <center>
             <GridPane fx:id="pane3" alignment="CENTER" gridLinesVisible="true" stylesheets="@css/styles.css">
                 <ImageView image="${controller.model.firstPosition}" onMouseClicked="#positionOneClicked">
