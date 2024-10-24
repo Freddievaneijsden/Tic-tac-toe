@@ -33,31 +33,31 @@
         </bottom>
         <center>
             <GridPane fx:id="pane3" alignment="CENTER" gridLinesVisible="true" stylesheets="@css/styles.css">
-                <ImageView image="${controller.model.firstPosition}" onMouseClicked="#positionOneClicked">
+                <ImageView image="${controller.model.images[0]}" onMouseClicked="#positionOneClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="1" image="${controller.model.secondPosition}" onMouseClicked="#positionTwoClicked">
+                <ImageView GridPane.columnIndex="1" image="${controller.model.images[1]}" onMouseClicked="#positionTwoClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="2" image="${controller.model.thirdPosition}" onMouseClicked="#positionThreeClicked">
+                <ImageView GridPane.columnIndex="2" image="${controller.model.images[2]}" onMouseClicked="#positionThreeClicked">
                 </ImageView>
 
-                <ImageView GridPane.rowIndex="1" image="${controller.model.fourthPosition}" onMouseClicked="#positionFourClicked">
+                <ImageView GridPane.rowIndex="1" image="${controller.model.images[3]}" onMouseClicked="#positionFourClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="1" GridPane.rowIndex="1" image="${controller.model.fifthPosition}" onMouseClicked="#positionFiveClicked">
+                <ImageView GridPane.columnIndex="1" GridPane.rowIndex="1" image="${controller.model.images[4]}" onMouseClicked="#positionFiveClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="2" GridPane.rowIndex="1" image="${controller.model.sixthPosition}" onMouseClicked="#positionSixthClicked">
+                <ImageView GridPane.columnIndex="2" GridPane.rowIndex="1" image="${controller.model.images[5]}" onMouseClicked="#positionSixthClicked">
                 </ImageView>
 
-                <ImageView GridPane.rowIndex="2" image="${controller.model.seventhPosition}" onMouseClicked="#positionSeventhClicked">
+                <ImageView GridPane.rowIndex="2" image="${controller.model.images[6]}" onMouseClicked="#positionSeventhClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="1" GridPane.rowIndex="2" image="${controller.model.eighthPosition}" onMouseClicked="#positionEighthClicked">
+                <ImageView GridPane.columnIndex="1" GridPane.rowIndex="2" image="${controller.model.images[7]}" onMouseClicked="#positionEighthClicked">
                 </ImageView>
 
-                <ImageView GridPane.columnIndex="2" GridPane.rowIndex="2" image="${controller.model.ninthPosition}" onMouseClicked="#positionNinthClicked">
+                <ImageView GridPane.columnIndex="2" GridPane.rowIndex="2" image="${controller.model.images[8]}" onMouseClicked="#positionNinthClicked">
                 </ImageView>
 
                 <columnConstraints>

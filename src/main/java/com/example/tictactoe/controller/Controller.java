@@ -14,6 +14,8 @@ import static com.example.tictactoe.Position.*;
 
 public class Controller {
 
+    Model model = new Model();
+
     public void initialize() {
         startRandomEvent();
     }
@@ -28,10 +30,9 @@ public class Controller {
                         }
                 )
         );
+//        if (model.isWinning()) timeLine.pause();
         timeLine.play();
     }
-
-    Model model = new Model();
 
     public Model getModel() {
         return model;

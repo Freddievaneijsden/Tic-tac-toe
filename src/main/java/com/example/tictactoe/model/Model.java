@@ -1,13 +1,16 @@
 package com.example.tictactoe.model;
 
+import com.example.tictactoe.GameState;
 import com.example.tictactoe.Players;
 import com.example.tictactoe.Position;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
 import java.util.*;
 
+import static com.example.tictactoe.GameState.*;
 import static com.example.tictactoe.Players.*;
 import static com.example.tictactoe.Position.*;
 
@@ -20,44 +23,46 @@ public class Model {
     private final StringProperty scorePlayer2 = new SimpleStringProperty("0 points");
     private final StringProperty result = new SimpleStringProperty("");
     private final List<Position> availablePositions = new ArrayList<>();
+    private final ListProperty<Image> images = new SimpleListProperty<>(FXCollections.observableArrayList());
     private Players currentPlayer;
-    private int moveCount = 0;
+    private GameState gameState;
     Image circle;
     Image cross;
     Image empty;
 
-//    private final ListProperty<Image> images = new SimpleListProperty<>(FXCollections.observableArrayList());
 
-    ObjectProperty<Image> firstPosition;
-    ObjectProperty<Image> secondPosition;
-    ObjectProperty<Image> thirdPosition;
-    ObjectProperty<Image> fourthPosition;
-    ObjectProperty<Image> fifthPosition;
-    ObjectProperty<Image> sixthPosition;
-    ObjectProperty<Image> seventhPosition;
-    ObjectProperty<Image> eighthPosition;
-    ObjectProperty<Image> ninthPosition;
-
-
-
-    Random random  = new Random();
+    Random random = new Random();
 
     public Model() {
+        currentPlayer = PLAYER1;
+        gameState = RUNNING;
         circle = new Image(getClass().getResource("/com/example/tictactoe/images/Circle.png").toExternalForm());
         cross = new Image(getClass().getResource("/com/example/tictactoe/images/Cross.png").toExternalForm());
         empty = new Image(getClass().getResource("/com/example/tictactoe/images/Empty.png").toExternalForm());
-        firstPosition = new SimpleObjectProperty<>(empty);
-        secondPosition = new SimpleObjectProperty<>(empty);
-        thirdPosition = new SimpleObjectProperty<>(empty);
-        fourthPosition = new SimpleObjectProperty<>(empty);
-        fifthPosition = new SimpleObjectProperty<>(empty);
-        sixthPosition = new SimpleObjectProperty<>(empty);
-        seventhPosition = new SimpleObjectProperty<>(empty);
-        eighthPosition = new SimpleObjectProperty<>(empty);
-        ninthPosition = new SimpleObjectProperty<>(empty);
 
-        currentPlayer = PLAYER1;
+        images.addFirst(empty);
+        images.add(1, empty);
+        images.add(2, empty);
+        images.add(3, empty);
+        images.add(4, empty);
+        images.add(5, empty);
+        images.add(6, empty);
+        images.add(7, empty);
+        images.add(8, empty);
+
         availablePositions.addAll(Arrays.asList(FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINTH));
+    }
+
+    public ObservableList<Image> getImages() {
+        return images.get();
+    }
+
+    public ListProperty<Image> imagesProperty() {
+        return images;
+    }
+
+    public void setImages(ObservableList<Image> images) {
+        this.images.set(images);
     }
 
     public String getResult() {
@@ -78,10 +83,6 @@ public class Model {
 
     public Players getCurrentPlayer() {
         return currentPlayer;
-    }
-
-    public int getMoveCount() {
-        return moveCount;
     }
 
     public String getScorePlayer1() {
@@ -108,268 +109,142 @@ public class Model {
         this.scorePlayer2.set(scorePlayer2);
     }
 
-    public Image getFirstPosition() {
-        return firstPosition.get();
-    }
-
-    public ObjectProperty<Image> firstPositionProperty() {
-        return firstPosition;
-    }
-
-    public void setFirstPosition(Image firstPosition) {
-        this.firstPosition.set(firstPosition);
-    }
-
-    public Image getSecondPosition() {
-        return secondPosition.get();
-    }
-
-    public ObjectProperty<Image> secondPositionProperty() {
-        return secondPosition;
-    }
-
-    public void setSecondPosition(Image secondPosition) {
-        this.secondPosition.set(secondPosition);
-    }
-
-    public Image getThirdPosition() {
-        return thirdPosition.get();
-    }
-
-    public ObjectProperty<Image> thirdPositionProperty() {
-        return thirdPosition;
-    }
-
-    public void setThirdPosition(Image thirdPosition) {
-        this.thirdPosition.set(thirdPosition);
-    }
-
-    public Image getFourthPosition() {
-        return fourthPosition.get();
-    }
-
-    public ObjectProperty<Image> fourthPositionProperty() {
-        return fourthPosition;
-    }
-
-    public void setFourthPosition(Image fourthPosition) {
-        this.fourthPosition.set(fourthPosition);
-    }
-
-    public Image getFifthPosition() {
-        return fifthPosition.get();
-    }
-
-    public ObjectProperty<Image> fifthPositionProperty() {
-        return fifthPosition;
-    }
-
-    public void setFifthPosition(Image fifthPosition) {
-        this.fifthPosition.set(fifthPosition);
-    }
-
-    public Image getSixthPosition() {
-        return sixthPosition.get();
-    }
-
-    public ObjectProperty<Image> sixthPositionProperty() {
-        return sixthPosition;
-    }
-
-    public void setSixthPosition(Image sixthPosition) {
-        this.sixthPosition.set(sixthPosition);
-    }
-
-    public Image getSeventhPosition() {
-        return seventhPosition.get();
-    }
-
-    public ObjectProperty<Image> seventhPositionProperty() {
-        return seventhPosition;
-    }
-
-    public void setSeventhPosition(Image seventhPosition) {
-        this.seventhPosition.set(seventhPosition);
-    }
-
-    public Image getEighthPosition() {
-        return eighthPosition.get();
-    }
-
-    public ObjectProperty<Image> eighthPositionProperty() {
-        return eighthPosition;
-    }
-
-    public void setEighthPosition(Image eighthPosition) {
-        this.eighthPosition.set(eighthPosition);
-    }
-
-    public Image getNinthPosition() {
-        return ninthPosition.get();
-    }
-
-    public ObjectProperty<Image> ninthPositionProperty() {
-        return ninthPosition;
-    }
-
-    public void setNinthPosition(Image ninthPosition) {
-        this.ninthPosition.set(ninthPosition);
-    }
-
     public Position npcRandomPosition() {
         Position randomPosition = availablePositions.get(random.nextInt(availablePositions.size()));
         availablePositions.remove(randomPosition);
         return randomPosition;
     }
 
-    public void npcMove () {
-        if (currentPlayer == NPC) {
+    public void npcMove() {
+        if (currentPlayer.equals(NPC) && gameState.equals(RUNNING)) {
             selectedPosition(npcRandomPosition());
         }
     }
 
-//    public void printAvailablePositions() {
-//        System.out.println(availablePositions);
-//    }
-
     public void selectedPosition(Position position) {
-        if (position == FIRST && getFirstPosition() == empty) {
-            moveCount ++;
+//        if (gameState.equals(GAME_OVER)) {
+//            return;
+//        }
+        if (position == FIRST && images.getFirst() == empty) {
             switch (currentPlayer) {
                 case PLAYER1 -> {
-                    setFirstPosition(cross);
+                    images.set(0, cross);
                     currentPlayer = NPC;
                 }
                 case NPC -> {
-                    setFirstPosition(circle);
+                    images.set(0, circle);
                     currentPlayer = PLAYER1;
                 }
             }
-        }
-        else if (position == SECOND && getSecondPosition() == empty) {
-            moveCount ++;
+        } else if (position == SECOND && images.get(1) == empty) {
             switch (currentPlayer) {
                 case PLAYER1 -> {
-                    setSecondPosition(cross);
+                    images.set(1, cross);
                     currentPlayer = NPC;
                 }
                 case NPC -> {
-                    setSecondPosition(circle);
+                    images.set(1, circle);
                     currentPlayer = PLAYER1;
                 }
             }
-        }
-        else if (position == THIRD && getThirdPosition() == empty) {
-            moveCount ++;
+        } else if (position == THIRD && images.get(2) == empty) {
             switch (currentPlayer) {
                 case PLAYER1 -> {
-                    setThirdPosition(cross);
+                    images.set(2, cross);
                     currentPlayer = NPC;
                 }
                 case NPC -> {
-                    setThirdPosition(circle);
+                    images.set(2, circle);
                     currentPlayer = PLAYER1;
                 }
             }
-        }
-        else if (position == FOURTH && getFourthPosition() == empty) {
-            moveCount ++;
+        } else if (position == FOURTH && images.get(3) == empty) {
             switch (currentPlayer) {
                 case PLAYER1 -> {
-                    setFourthPosition(cross);
+                    images.set(3, cross);
                     currentPlayer = NPC;
                 }
                 case NPC -> {
-                    setFourthPosition(circle);
+                    images.set(3, circle);
                     currentPlayer = PLAYER1;
                 }
             }
-        }
-        else if (position == FIFTH && getFifthPosition() == empty) {
-            moveCount ++;
+        } else if (position == FIFTH && images.get(4) == empty) {
             switch (currentPlayer) {
                 case PLAYER1 -> {
-                    setFifthPosition(cross);
+                    images.set(4, cross);
                     currentPlayer = NPC;
                 }
                 case NPC -> {
-                    setFifthPosition(circle);
+                    images.set(4, circle);
                     currentPlayer = PLAYER1;
                 }
             }
-        }
-        else if (position == SIXTH && getSixthPosition() == empty){
-            moveCount ++;
+        } else if (position == SIXTH && images.get(5) == empty) {
             switch (currentPlayer) {
                 case PLAYER1 -> {
-                    setSixthPosition(cross);
+                    images.set(5, cross);
                     currentPlayer = NPC;
                 }
                 case NPC -> {
-                    setSixthPosition(circle);
+                    images.set(5, circle);
                     currentPlayer = PLAYER1;
                 }
             }
-        }
-        else if (position == SEVENTH && getSeventhPosition() == empty){
-            moveCount ++;
+        } else if (position == SEVENTH && images.get(6) == empty) {
             switch (currentPlayer) {
                 case PLAYER1 -> {
-                    setSeventhPosition(cross);
+                    images.set(6, cross);
                     currentPlayer = NPC;
                 }
                 case NPC -> {
-                    setSeventhPosition(circle);
+                    images.set(6, circle);
                     currentPlayer = PLAYER1;
                 }
             }
-        }
-        else if (position == EIGHTH && getEighthPosition() == empty){
-            moveCount ++;
+        } else if (position == EIGHTH && images.get(7) == empty) {
             switch (currentPlayer) {
                 case PLAYER1 -> {
-                    setEighthPosition(cross);
+                    images.set(7, cross);
                     currentPlayer = NPC;
                 }
                 case NPC -> {
-                    setEighthPosition(circle);
+                    images.set(7, circle);
                     currentPlayer = PLAYER1;
                 }
             }
-        }
-        else if (position == NINTH && getNinthPosition() == empty){
-            moveCount ++;
+        } else if (position == NINTH && images.get(8) == empty) {
             switch (currentPlayer) {
                 case PLAYER1 -> {
-                    setNinthPosition(cross);
+                    images.set(8, cross);
                     currentPlayer = NPC;
                 }
                 case NPC -> {
-                    setNinthPosition(circle);
+                    images.set(8, circle);
                     currentPlayer = PLAYER1;
                 }
             }
         }
         availablePositions.remove(position);
-
         isWinning();
     }
 
-    public boolean isWinning () {
+    public boolean isWinning() {
         if (isCross()) {
-            score1 ++;
+            score1++;
             setScorePlayer1(score1 + " points");
             setResult("Player 1 Wins!");
+            gameState = GAME_OVER;
             return true;
-        }
-        else if (isCircle()) {
-            score2 ++;
+        } else if (isCircle()) {
+            score2++;
             setScorePlayer2(score2 + " points");
             setResult("Player 2 Wins!");
+            gameState = GAME_OVER;
             return true;
-        }
-        else if (getMoveCount() == 9) {
+        } else if (getAvailablePositions().isEmpty()) {
             setResult("Drawn!");
+            gameState = GAME_OVER;
             return true;
         }
         return false;
@@ -392,36 +267,35 @@ public class Model {
     }
 
     private boolean checkRows(Image image) {
-        return (getFirstPosition() == image && getSecondPosition() == image && getThirdPosition() == image)
-                || (getFourthPosition() == image && getFifthPosition() == image && getSixthPosition() == image)
-                || (getSeventhPosition() == image && getEighthPosition() == image && getNinthPosition() == image);
+        return (images.get(0) == image && images.get(1) == image && images.get(2) == image)
+                || (images.get(3) == image && images.get(4) == image && images.get(5) == image)
+                || (images.get(6) == image && images.get(7) == image && images.get(8) == image);
     }
 
     private boolean checkColumns(Image image) {
-        return (getFirstPosition() == image && getFourthPosition() == image && getSeventhPosition() == image)
-                || (getSecondPosition() == image && getFifthPosition() == image && getEighthPosition() == image)
-                || (getThirdPosition() == image && getSixthPosition() == image && getNinthPosition() == image);
+        return (images.get(0) == image && images.get(3) == image && images.get(6) == image)
+                || (images.get(1) == image && images.get(4) == image && images.get(7) == image)
+                || (images.get(2) == image && images.get(5) == image && images.get(8) == image);
     }
 
     private boolean checkDiagonal(Image image) {
-        return ((getFirstPosition() == image && getFifthPosition() == image && getNinthPosition() == image)
-        || (getThirdPosition() == image && getFifthPosition() == image && getSeventhPosition() == image));
+        return ((images.get(0) == image && images.get(4) == image && images.get(8) == image)
+                || (images.get(2) == image && images.get(4) == image && images.get(6) == image));
     }
 
-    public void resetGame () {
-
-        setFirstPosition(empty);
-        setSecondPosition(empty);
-        setThirdPosition(empty);
-        setFourthPosition(empty);
-        setFifthPosition(empty);
-        setSixthPosition(empty);
-        setSeventhPosition(empty);
-        setEighthPosition(empty);
-        setNinthPosition(empty);
-        moveCount = 0;
-        availablePositions.addAll(Arrays.asList(FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINTH));
+    public void resetGame() {
+        images.set(0, empty);
+        images.set(1, empty);
+        images.set(2, empty);
+        images.set(3, empty);
+        images.set(4, empty);
+        images.set(5, empty);
+        images.set(6, empty);
+        images.set(7, empty);
+        images.set(8, empty);
         currentPlayer = PLAYER1;
-
+        availablePositions.addAll(Arrays.asList(FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINTH));
+        setResult("");
+        gameState = RUNNING;
     }
 }
