@@ -6,7 +6,6 @@ import com.example.tictactoe.Position;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Cell;
 import javafx.scene.image.Image;
 
 import java.util.*;
@@ -23,8 +22,9 @@ public class Model {
     private final StringProperty scorePlayer1 = new SimpleStringProperty("0 points");
     private final StringProperty scorePlayer2 = new SimpleStringProperty("0 points");
     private final StringProperty result = new SimpleStringProperty("");
-    private final List<Position> availablePositions = new ArrayList<>();
+    private final List<Position> availablePositions = new ArrayList<>(); //use images array instead.
     private final ListProperty<Image> images = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final List<Players> currentPlayers = new ArrayList<>();
     private Players currentPlayer;
     private GameState gameState;
     Image circle;
@@ -34,7 +34,8 @@ public class Model {
     Random random = new Random();
 
     public Model() {
-        currentPlayer = PLAYER1;
+        currentPlayers.addAll(Arrays.asList(PLAYER1, NPC));
+        currentPlayer = randomizeStartingPlayer();
         gameState = RUNNING;
 
         circle = new Image(getClass().getResource("/com/example/tictactoe/images/Circle.png").toExternalForm());
@@ -50,6 +51,9 @@ public class Model {
         images.add(6, empty);
         images.add(7, empty);
         images.add(8, empty);
+
+        ObjectProperty<Players> playerOne = new SimpleObjectProperty<>();
+        ObjectProperty<Players> playerNpc = new SimpleObjectProperty<>();
 
         availablePositions.addAll(Arrays.asList(FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINTH));
     }
@@ -102,13 +106,17 @@ public class Model {
         this.scorePlayer2.set(scorePlayer2);
     }
 
-    public Position GenerateRandomPositionNPC() {
+    public Players randomizeStartingPlayer() {
+        return currentPlayers.get(random.nextInt(currentPlayers.size()));
+    }
+
+    public Position generateRandomPositionNPC() {
         return availablePositions.get(random.nextInt(availablePositions.size()));
     }
 
     public void npcMove() {
         if (currentPlayer.equals(NPC) && gameState.equals(RUNNING)) {
-            selectedPosition(GenerateRandomPositionNPC());
+            selectedPosition(generateRandomPositionNPC());
         }
     }
 
@@ -135,6 +143,7 @@ public class Model {
 
         availablePositions.removeIf(pos->pos.equals(position));
         isWinning();
+        System.out.println(currentPlayer);
     }
 
     private void setCrossOrCircle(int indexForImage) {
@@ -223,7 +232,7 @@ public class Model {
         images.set(6, empty);
         images.set(7, empty);
         images.set(8, empty);
-        currentPlayer = PLAYER1;
+        currentPlayer = randomizeStartingPlayer();
         availablePositions.addAll(Arrays.asList(FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINTH));
         setResult("");
         gameState = RUNNING;

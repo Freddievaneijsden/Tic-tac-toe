@@ -21,7 +21,7 @@ public class Controller {
     }
 
     private void startRandomEvent() {
-        Timeline timeLine = new Timeline(   //tid som går
+        Timeline timeLine = new Timeline(
                 new KeyFrame(
                         Duration.millis(Math.random() * 3000),
                         (ActionEvent event) -> {
