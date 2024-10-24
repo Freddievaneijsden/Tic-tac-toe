@@ -6,6 +6,7 @@ import com.example.tictactoe.Position;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Cell;
 import javafx.scene.image.Image;
 
 import java.util.*;
@@ -30,12 +31,12 @@ public class Model {
     Image cross;
     Image empty;
 
-
     Random random = new Random();
 
     public Model() {
         currentPlayer = PLAYER1;
         gameState = RUNNING;
+
         circle = new Image(getClass().getResource("/com/example/tictactoe/images/Circle.png").toExternalForm());
         cross = new Image(getClass().getResource("/com/example/tictactoe/images/Cross.png").toExternalForm());
         empty = new Image(getClass().getResource("/com/example/tictactoe/images/Empty.png").toExternalForm());
@@ -55,14 +56,6 @@ public class Model {
 
     public ObservableList<Image> getImages() {
         return images.get();
-    }
-
-    public ListProperty<Image> imagesProperty() {
-        return images;
-    }
-
-    public void setImages(ObservableList<Image> images) {
-        this.images.set(images);
     }
 
     public String getResult() {
@@ -109,145 +102,82 @@ public class Model {
         this.scorePlayer2.set(scorePlayer2);
     }
 
-    public Position npcRandomPosition() {
-        Position randomPosition = availablePositions.get(random.nextInt(availablePositions.size()));
-        availablePositions.remove(randomPosition);
-        return randomPosition;
+    public Position GenerateRandomPositionNPC() {
+        return availablePositions.get(random.nextInt(availablePositions.size()));
     }
 
     public void npcMove() {
         if (currentPlayer.equals(NPC) && gameState.equals(RUNNING)) {
-            selectedPosition(npcRandomPosition());
+            selectedPosition(GenerateRandomPositionNPC());
         }
     }
 
     public void selectedPosition(Position position) {
-//        if (gameState.equals(GAME_OVER)) {
-//            return;
-//        }
         if (position == FIRST && images.getFirst() == empty) {
-            switch (currentPlayer) {
-                case PLAYER1 -> {
-                    images.set(0, cross);
-                    currentPlayer = NPC;
-                }
-                case NPC -> {
-                    images.set(0, circle);
-                    currentPlayer = PLAYER1;
-                }
-            }
+            setCrossOrCircle(0);
         } else if (position == SECOND && images.get(1) == empty) {
-            switch (currentPlayer) {
-                case PLAYER1 -> {
-                    images.set(1, cross);
-                    currentPlayer = NPC;
-                }
-                case NPC -> {
-                    images.set(1, circle);
-                    currentPlayer = PLAYER1;
-                }
-            }
+            setCrossOrCircle(1);
         } else if (position == THIRD && images.get(2) == empty) {
-            switch (currentPlayer) {
-                case PLAYER1 -> {
-                    images.set(2, cross);
-                    currentPlayer = NPC;
-                }
-                case NPC -> {
-                    images.set(2, circle);
-                    currentPlayer = PLAYER1;
-                }
-            }
+            setCrossOrCircle(2);
         } else if (position == FOURTH && images.get(3) == empty) {
-            switch (currentPlayer) {
-                case PLAYER1 -> {
-                    images.set(3, cross);
-                    currentPlayer = NPC;
-                }
-                case NPC -> {
-                    images.set(3, circle);
-                    currentPlayer = PLAYER1;
-                }
-            }
+            setCrossOrCircle(3);
         } else if (position == FIFTH && images.get(4) == empty) {
-            switch (currentPlayer) {
-                case PLAYER1 -> {
-                    images.set(4, cross);
-                    currentPlayer = NPC;
-                }
-                case NPC -> {
-                    images.set(4, circle);
-                    currentPlayer = PLAYER1;
-                }
-            }
+            setCrossOrCircle(4);
         } else if (position == SIXTH && images.get(5) == empty) {
-            switch (currentPlayer) {
-                case PLAYER1 -> {
-                    images.set(5, cross);
-                    currentPlayer = NPC;
-                }
-                case NPC -> {
-                    images.set(5, circle);
-                    currentPlayer = PLAYER1;
-                }
-            }
+            setCrossOrCircle(5);
         } else if (position == SEVENTH && images.get(6) == empty) {
-            switch (currentPlayer) {
-                case PLAYER1 -> {
-                    images.set(6, cross);
-                    currentPlayer = NPC;
-                }
-                case NPC -> {
-                    images.set(6, circle);
-                    currentPlayer = PLAYER1;
-                }
-            }
+            setCrossOrCircle(6);
         } else if (position == EIGHTH && images.get(7) == empty) {
-            switch (currentPlayer) {
-                case PLAYER1 -> {
-                    images.set(7, cross);
-                    currentPlayer = NPC;
-                }
-                case NPC -> {
-                    images.set(7, circle);
-                    currentPlayer = PLAYER1;
-                }
-            }
+            setCrossOrCircle(7);
         } else if (position == NINTH && images.get(8) == empty) {
-            switch (currentPlayer) {
-                case PLAYER1 -> {
-                    images.set(8, cross);
-                    currentPlayer = NPC;
-                }
-                case NPC -> {
-                    images.set(8, circle);
-                    currentPlayer = PLAYER1;
-                }
-            }
+            setCrossOrCircle(8);
         }
-        availablePositions.remove(position);
+
+        availablePositions.removeIf(pos->pos.equals(position));
         isWinning();
     }
 
+    private void setCrossOrCircle(int indexForImage) {
+        switch (currentPlayer) {
+            case PLAYER1 -> {
+                images.set(indexForImage, cross);
+                currentPlayer = NPC;
+            }
+            case NPC -> {
+                images.set(indexForImage, circle);
+                currentPlayer = PLAYER1;
+            }
+        }
+    }
+
     public boolean isWinning() {
+        if (isCross()) {
+            addScore();
+            return true;
+        } else if (isCircle()) {
+            addScore();
+            return true;
+        } else {
+            addScore();
+        }
+        return false;
+    }
+
+    private void addScore() {
         if (isCross()) {
             score1++;
             setScorePlayer1(score1 + " points");
             setResult("Player 1 Wins!");
             gameState = GAME_OVER;
-            return true;
         } else if (isCircle()) {
             score2++;
             setScorePlayer2(score2 + " points");
             setResult("Player 2 Wins!");
             gameState = GAME_OVER;
-            return true;
         } else if (getAvailablePositions().isEmpty()) {
             setResult("Drawn!");
             gameState = GAME_OVER;
-            return true;
         }
-        return false;
     }
 
     public boolean isCross() {
@@ -266,21 +196,21 @@ public class Model {
         else return checkDiagonal(circle);
     }
 
-    private boolean checkRows(Image image) {
-        return (images.get(0) == image && images.get(1) == image && images.get(2) == image)
-                || (images.get(3) == image && images.get(4) == image && images.get(5) == image)
-                || (images.get(6) == image && images.get(7) == image && images.get(8) == image);
+    private boolean checkRows(Image crossOrCircle) {
+        return (images.get(0) == crossOrCircle && images.get(1) == crossOrCircle && images.get(2) == crossOrCircle)
+                || (images.get(3) == crossOrCircle && images.get(4) == crossOrCircle && images.get(5) == crossOrCircle)
+                || (images.get(6) == crossOrCircle && images.get(7) == crossOrCircle && images.get(8) == crossOrCircle);
     }
 
-    private boolean checkColumns(Image image) {
-        return (images.get(0) == image && images.get(3) == image && images.get(6) == image)
-                || (images.get(1) == image && images.get(4) == image && images.get(7) == image)
-                || (images.get(2) == image && images.get(5) == image && images.get(8) == image);
+    private boolean checkColumns(Image crossOrCircle) {
+        return (images.get(0) == crossOrCircle && images.get(3) == crossOrCircle && images.get(6) == crossOrCircle)
+                || (images.get(1) == crossOrCircle && images.get(4) == crossOrCircle && images.get(7) == crossOrCircle)
+                || (images.get(2) == crossOrCircle && images.get(5) == crossOrCircle && images.get(8) == crossOrCircle);
     }
 
-    private boolean checkDiagonal(Image image) {
-        return ((images.get(0) == image && images.get(4) == image && images.get(8) == image)
-                || (images.get(2) == image && images.get(4) == image && images.get(6) == image));
+    private boolean checkDiagonal(Image crossOrCircle) {
+        return ((images.get(0) == crossOrCircle && images.get(4) == crossOrCircle && images.get(8) == crossOrCircle)
+                || (images.get(2) == crossOrCircle && images.get(4) == crossOrCircle && images.get(6) == crossOrCircle));
     }
 
     public void resetGame() {
