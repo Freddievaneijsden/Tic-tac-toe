@@ -57,6 +57,7 @@ public class Controller {
     public void positionThreeClicked(MouseEvent mouseEvent) {
         if (model.getCurrentPlayer().equals(PLAYER1)) {
             model.selectedPosition(THIRD);
+            // testa id med enum och använd switch, getID metod 
         }
     }
 

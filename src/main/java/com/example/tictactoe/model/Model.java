@@ -52,10 +52,11 @@ public class Model {
         images.add(7, empty);
         images.add(8, empty);
 
-        ObjectProperty<Players> playerOne = new SimpleObjectProperty<>();
-        ObjectProperty<Players> playerNpc = new SimpleObjectProperty<>();
-
         availablePositions.addAll(Arrays.asList(FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINTH));
+    }
+
+    public ListProperty<Image> imagesProperty() {
+        return images;
     }
 
     public ObservableList<Image> getImages() {
@@ -143,7 +144,6 @@ public class Model {
 
         availablePositions.removeIf(pos->pos.equals(position));
         isWinning();
-        System.out.println(currentPlayer);
     }
 
     private void setCrossOrCircle(int indexForImage) {
