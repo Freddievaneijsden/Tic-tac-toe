@@ -30,10 +30,10 @@ public class Model {
     Image circle;
     Image cross;
     Image empty;
+    Random random;
 
-    Random random = new Random();
-
-    public Model() {
+    public Model (Random random) {
+        this.random = random;
         currentPlayers.addAll(Arrays.asList(PLAYER1, NPC));
         currentPlayer = randomizeStartingPlayer();
         gameState = RUNNING;
@@ -53,6 +53,10 @@ public class Model {
         images.add(8, empty);
 
         availablePositions.addAll(Arrays.asList(FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINTH));
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 
     public ListProperty<Image> imagesProperty() {
@@ -77,6 +81,14 @@ public class Model {
 
     public List<Position> getAvailablePositions() {
         return availablePositions;
+    }
+
+    public int getScore1() {
+        return score1;
+    }
+
+    public int getScore2() {
+        return score2;
     }
 
     public Players getCurrentPlayer() {
@@ -118,6 +130,7 @@ public class Model {
     public void npcMove() {
         if (currentPlayer.equals(NPC) && gameState.equals(RUNNING)) {
             selectedPosition(generateRandomPositionNPC());
+            currentPlayer = PLAYER1;
         }
     }
 
@@ -144,32 +157,28 @@ public class Model {
 
         availablePositions.removeIf(pos->pos.equals(position));
         isWinning();
+        currentPlayer = NPC;
     }
 
-    private void setCrossOrCircle(int indexForImage) {
+    public void setCrossOrCircle(int indexForImage) {
         switch (currentPlayer) {
             case PLAYER1 -> {
                 images.set(indexForImage, cross);
-                currentPlayer = NPC;
             }
             case NPC -> {
                 images.set(indexForImage, circle);
-                currentPlayer = PLAYER1;
             }
         }
     }
 
-    public boolean isWinning() {
+    public void isWinning() {
         if (isCross()) {
             addScore();
-            return true;
         } else if (isCircle()) {
             addScore();
-            return true;
         } else {
             addScore();
         }
-        return false;
     }
 
     private void addScore() {
@@ -177,32 +186,45 @@ public class Model {
             score1++;
             setScorePlayer1(score1 + " points");
             setResult("Player 1 Wins!");
-            gameState = GAME_OVER;
         } else if (isCircle()) {
             score2++;
             setScorePlayer2(score2 + " points");
             setResult("Player 2 Wins!");
-            gameState = GAME_OVER;
         } else if (getAvailablePositions().isEmpty()) {
             setResult("Drawn!");
-            gameState = GAME_OVER;
         }
     }
 
     public boolean isCross() {
-        if (checkRows(cross))
+        if (checkRows(cross)) {
+            gameState = GAME_OVER;
             return true;
-        else if (checkColumns(cross))
+        }
+        else if (checkColumns(cross)) {
+            gameState = GAME_OVER;
             return true;
-        else return checkDiagonal(cross);
+        }
+        else if (checkDiagonal(cross)) {
+            gameState = GAME_OVER;
+            return true;
+        }
+        return false;
     }
 
     public boolean isCircle() {
-        if (checkRows(circle))
+        if (checkRows(circle)) {
+            gameState = GAME_OVER;
             return true;
-        else if (checkColumns(circle))
+        }
+        else if (checkColumns(circle)) {
+            gameState = GAME_OVER;
             return true;
-        else return checkDiagonal(circle);
+        }
+        else if (checkDiagonal(circle)) {
+            gameState = GAME_OVER;
+            return true;
+        }
+        return false;
     }
 
     private boolean checkRows(Image crossOrCircle) {

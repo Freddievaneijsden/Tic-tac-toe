@@ -9,12 +9,14 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
+import java.util.Random;
+
 import static com.example.tictactoe.Players.*;
 import static com.example.tictactoe.Position.*;
 
 public class Controller {
 
-    Model model = new Model();
+    Model model = new Model(new Random());
 
     public void initialize() {
         startRandomEvent();
