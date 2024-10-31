@@ -69,6 +69,13 @@ public class Controller {
         Node source = (Node) mouseEvent.getSource();
         String id= source.getId();
 
+        Position position = checkPosition(id);
+        if (model.getCurrentPlayer().equals(PLAYER1)) {
+            model.selectedPosition(position);
+            }
+    }
+
+    private static Position checkPosition(String id) {
         Position position;
         switch (id) {
             case "imageView1" -> position = FIRST;
@@ -82,6 +89,6 @@ public class Controller {
             case "imageView9" -> position = NINTH;
             default -> throw new IllegalArgumentException("Unexpected id: " + id);
         }
-            model.selectedPosition(position);
+        return position;
     }
 }
