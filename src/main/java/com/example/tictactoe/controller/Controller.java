@@ -1,5 +1,6 @@
 package com.example.tictactoe.controller;
 
+import com.example.tictactoe.GameState;
 import com.example.tictactoe.Players;
 import com.example.tictactoe.Position;
 import com.example.tictactoe.model.Model;
@@ -15,6 +16,7 @@ import javafx.util.Duration;
 import javax.xml.transform.Source;
 import java.util.Random;
 
+import static com.example.tictactoe.GameState.*;
 import static com.example.tictactoe.Players.*;
 import static com.example.tictactoe.Position.*;
 
@@ -40,18 +42,18 @@ public class Controller {
                         }
                 )
         );
-//        if (model.isWinning()) timeLine.pause();
         timeLine.play();
     }
 
     public void colorToIndicateTurn() {
-        if (model.getCurrentPlayer().equals(PLAYER1)) {
-            player1Label.setStyle("-fx-text-fill: RED;");
-            player2Label.setStyle("-fx-text-fill: BLACK;");
-        }
-        else {
-            player1Label.setStyle("-fx-text-fill: BLACK;");
-            player2Label.setStyle("-fx-text-fill: BLUE;");
+        if (model.getGameState().equals(RUNNING)) {
+            if (model.getCurrentPlayer().equals(PLAYER1)) {
+                player1Label.setStyle("-fx-text-fill: RED;");
+                player2Label.setStyle("-fx-text-fill: BLACK;");
+            } else {
+                player1Label.setStyle("-fx-text-fill: BLACK;");
+                player2Label.setStyle("-fx-text-fill: BLUE;");
+            }
         }
     }
 
@@ -80,63 +82,6 @@ public class Controller {
             case "imageView9" -> position = NINTH;
             default -> throw new IllegalArgumentException("Unexpected id: " + id);
         }
-        if (model.getCurrentPlayer().equals(PLAYER1)) {
             model.selectedPosition(position);
-        }
-    }
-
-    public void positionOneClicked(MouseEvent mouseEvent) {
-        if (model.getCurrentPlayer().equals(PLAYER1)) {
-            model.selectedPosition(FIRST);
-        }
-    }
-
-    public void positionTwoClicked(MouseEvent mouseEvent) {
-        if (model.getCurrentPlayer().equals(PLAYER1)) {
-            model.selectedPosition(SECOND);
-        }
-    }
-
-    public void positionThreeClicked(MouseEvent mouseEvent) {
-        if (model.getCurrentPlayer().equals(PLAYER1)) {
-            model.selectedPosition(THIRD);
-            // testa id med enum och använd switch, getID metod 
-        }
-    }
-
-    public void positionFourClicked(MouseEvent mouseEvent) {
-        if (model.getCurrentPlayer().equals(PLAYER1)) {
-            model.selectedPosition(FOURTH);
-        }
-    }
-
-    public void positionFiveClicked(MouseEvent mouseEvent) {
-        if (model.getCurrentPlayer().equals(PLAYER1)) {
-            model.selectedPosition(FIFTH);
-        }
-    }
-
-    public void positionSixthClicked(MouseEvent mouseEvent) {
-        if (model.getCurrentPlayer().equals(PLAYER1)) {
-            model.selectedPosition(SIXTH);
-        }
-    }
-
-    public void positionSeventhClicked(MouseEvent mouseEvent) {
-        if (model.getCurrentPlayer().equals(PLAYER1)) {
-            model.selectedPosition(SEVENTH);
-        }
-    }
-
-    public void positionEighthClicked(MouseEvent mouseEvent) {
-        if (model.getCurrentPlayer().equals(PLAYER1)) {
-            model.selectedPosition(EIGHTH);
-        }
-    }
-
-    public void positionNinthClicked(MouseEvent mouseEvent) {
-        if (model.getCurrentPlayer().equals(PLAYER1)) {
-            model.selectedPosition(NINTH);
-        }
     }
 }

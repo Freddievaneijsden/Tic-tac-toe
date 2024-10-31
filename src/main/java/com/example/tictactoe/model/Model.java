@@ -130,51 +130,101 @@ public class Model {
     public void npcMove() {
         if (currentPlayer.equals(NPC) && gameState.equals(RUNNING)) {
             selectedPosition(generateRandomPositionNPC());
-            currentPlayer = PLAYER1;
         }
     }
 
     public void selectedPosition(Position position) {
         if (position == FIRST && images.getFirst() == empty) {
-            setCrossOrCircle(0);
-        } else if (position == SECOND && images.get(1) == empty) {
-            setCrossOrCircle(1);
-        } else if (position == THIRD && images.get(2) == empty) {
-            setCrossOrCircle(2);
-        } else if (position == FOURTH && images.get(3) == empty) {
-            setCrossOrCircle(3);
-        } else if (position == FIFTH && images.get(4) == empty) {
-            setCrossOrCircle(4);
-        } else if (position == SIXTH && images.get(5) == empty) {
-            setCrossOrCircle(5);
-        } else if (position == SEVENTH && images.get(6) == empty) {
-            setCrossOrCircle(6);
-        } else if (position == EIGHTH && images.get(7) == empty) {
-            setCrossOrCircle(7);
-        } else if (position == NINTH && images.get(8) == empty) {
-            setCrossOrCircle(8);
+            if (currentPlayer.equals(PLAYER1)) {
+                images.set(0, cross);
+            }
+            else if (currentPlayer.equals(NPC)) {
+                images.set(0, circle);
+            }
+        }
+        else if (position == SECOND && images.get(1) == empty) {
+            if (currentPlayer.equals(PLAYER1)) {
+                images.set(1, cross);
+            }
+            else if (currentPlayer.equals(NPC)) {
+                images.set(1, circle);
+            }
+        }
+        else if (position == THIRD && images.get(2) == empty) {
+            if (currentPlayer.equals(PLAYER1)) {
+                images.set(2, cross);
+            }
+            else if (currentPlayer.equals(NPC)) {
+                images.set(2, circle);
+            }
+        }
+        else if (position == FOURTH && images.get(3) == empty) {
+            if (currentPlayer.equals(PLAYER1)) {
+                images.set(3, cross);
+            }
+            else if (currentPlayer.equals(NPC)) {
+                images.set(3, circle);
+            }
+        }
+        else if (position == FIFTH && images.get(4) == empty) {
+            if (currentPlayer.equals(PLAYER1)) {
+                images.set(4, cross);
+            }
+            else if (currentPlayer.equals(NPC)) {
+                images.set(4, circle);
+            }
+        }
+        else if (position == SIXTH && images.get(5) == empty) {
+            if (currentPlayer.equals(PLAYER1)) {
+                images.set(5, cross);
+            }
+            else if (currentPlayer.equals(NPC)) {
+                images.set(5, circle);
+            }
+        }
+        else if (position == SEVENTH && images.get(6) == empty) {
+            if (currentPlayer.equals(PLAYER1)) {
+                images.set(6, cross);
+            }
+            else if (currentPlayer.equals(NPC)) {
+                images.set(6, circle);
+            }
+        }
+        else if (position == EIGHTH && images.get(7) == empty) {
+            if (currentPlayer.equals(PLAYER1)) {
+                images.set(7, cross);
+            }
+            else if (currentPlayer.equals(NPC)) {
+                images.set(7, circle);
+            }
+        }
+        else if (position == NINTH && images.get(8) == empty) {
+            if (currentPlayer.equals(PLAYER1)) {
+                images.set(8, cross);
+            }
+            else if (currentPlayer.equals(NPC)) {
+                images.set(8, circle);
+            }
         }
 
         availablePositions.removeIf(pos->pos.equals(position));
-        isWinning();
-        currentPlayer = NPC;
+        checkWinning();
+        switchPlayer();
     }
 
-    public void setCrossOrCircle(int indexForImage) {
-        switch (currentPlayer) {
-            case PLAYER1 -> {
-                images.set(indexForImage, cross);
-            }
-            case NPC -> {
-                images.set(indexForImage, circle);
-            }
+    private void switchPlayer() {
+        if (currentPlayer.equals(PLAYER1)) {
+            currentPlayer = NPC;
+        }
+        else if (currentPlayer.equals(NPC)) {
+            currentPlayer = PLAYER1;
         }
     }
 
-    public void isWinning() {
-        if (isCross()) {
+    public void checkWinning() {
+        if (winningConditionsCross()) {
             addScore();
-        } else if (isCircle()) {
+        } else if (winningConditionsCircle()) {
             addScore();
         } else {
             addScore();
@@ -182,49 +232,28 @@ public class Model {
     }
 
     private void addScore() {
-        if (isCross()) {
+        if (winningConditionsCross()) {
             score1++;
             setScorePlayer1(score1 + " points");
             setResult("Player 1 Wins!");
-        } else if (isCircle()) {
+            gameState = GAME_OVER;
+        } else if (winningConditionsCircle()) {
             score2++;
             setScorePlayer2(score2 + " points");
             setResult("Player 2 Wins!");
+            gameState = GAME_OVER;
         } else if (getAvailablePositions().isEmpty()) {
             setResult("Drawn!");
+            gameState = GAME_OVER;
         }
     }
 
-    public boolean isCross() {
-        if (checkRows(cross)) {
-            gameState = GAME_OVER;
-            return true;
-        }
-        else if (checkColumns(cross)) {
-            gameState = GAME_OVER;
-            return true;
-        }
-        else if (checkDiagonal(cross)) {
-            gameState = GAME_OVER;
-            return true;
-        }
-        return false;
+    public boolean winningConditionsCross() {
+        return (checkRows(cross) || checkColumns(cross) || checkDiagonal(cross));
     }
 
-    public boolean isCircle() {
-        if (checkRows(circle)) {
-            gameState = GAME_OVER;
-            return true;
-        }
-        else if (checkColumns(circle)) {
-            gameState = GAME_OVER;
-            return true;
-        }
-        else if (checkDiagonal(circle)) {
-            gameState = GAME_OVER;
-            return true;
-        }
-        return false;
+    public boolean winningConditionsCircle() {
+        return (checkRows(circle) || checkColumns(circle) || checkDiagonal(circle));
     }
 
     private boolean checkRows(Image crossOrCircle) {
@@ -245,15 +274,9 @@ public class Model {
     }
 
     public void resetGame() {
-        images.set(0, empty);
-        images.set(1, empty);
-        images.set(2, empty);
-        images.set(3, empty);
-        images.set(4, empty);
-        images.set(5, empty);
-        images.set(6, empty);
-        images.set(7, empty);
-        images.set(8, empty);
+        for (int i = 0; i < 9; i++) {
+            images.add(i, empty);
+        }
         currentPlayer = randomizeStartingPlayer();
         availablePositions.addAll(Arrays.asList(FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, SEVENTH, EIGHTH, NINTH));
         setResult("");
