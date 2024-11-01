@@ -1,5 +1,5 @@
 package com.example.tictactoe;
 
 public enum GameState {
-    RUNNING, GAME_OVER, RESET;
+    RUNNING, GAME_OVER;
 }

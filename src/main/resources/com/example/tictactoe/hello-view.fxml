@@ -3,11 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.image.Image?>
 
 <HBox alignment="CENTER" spacing="20.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/17.0.12"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tictactoe.controller.Controller">
-
     <BorderPane fx:id="pane2" stylesheets="@css/styles.css">
         <top>
             <VBox alignment="CENTER">
@@ -34,14 +32,22 @@
         <center>
             <GridPane fx:id="pane3" alignment="CENTER" gridLinesVisible="true" stylesheets="@css/styles.css">
                 <ImageView id="imageView1" image="${controller.model.images[0]}" onMouseClicked="#positionClicked"/>
-                <ImageView id="imageView2" GridPane.columnIndex="1" image="${controller.model.images[1]}" onMouseClicked="#positionClicked"/>
-                <ImageView id="imageView3" GridPane.columnIndex="2" image="${controller.model.images[2]}" onMouseClicked="#positionClicked"/>
-                <ImageView id="imageView4" GridPane.rowIndex="1" image="${controller.model.images[3]}" onMouseClicked="#positionClicked"/>
-                <ImageView id="imageView5" GridPane.columnIndex="1" GridPane.rowIndex="1" image="${controller.model.images[4]}" onMouseClicked="#positionClicked"/>
-                <ImageView id="imageView6" GridPane.columnIndex="2" GridPane.rowIndex="1" image="${controller.model.images[5]}" onMouseClicked="#positionClicked"/>
-                <ImageView id="imageView7" GridPane.rowIndex="2" image="${controller.model.images[6]}" onMouseClicked="#positionClicked"/>
-                <ImageView id="imageView8" GridPane.columnIndex="1" GridPane.rowIndex="2" image="${controller.model.images[7]}" onMouseClicked="#positionClicked"/>
-                <ImageView id="imageView9" GridPane.columnIndex="2" GridPane.rowIndex="2" image="${controller.model.images[8]}" onMouseClicked="#positionClicked"/>
+                <ImageView id="imageView2" GridPane.columnIndex="1" image="${controller.model.images[1]}"
+                           onMouseClicked="#positionClicked"/>
+                <ImageView id="imageView3" GridPane.columnIndex="2" image="${controller.model.images[2]}"
+                           onMouseClicked="#positionClicked"/>
+                <ImageView id="imageView4" GridPane.rowIndex="1" image="${controller.model.images[3]}"
+                           onMouseClicked="#positionClicked"/>
+                <ImageView id="imageView5" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                           image="${controller.model.images[4]}" onMouseClicked="#positionClicked"/>
+                <ImageView id="imageView6" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                           image="${controller.model.images[5]}" onMouseClicked="#positionClicked"/>
+                <ImageView id="imageView7" GridPane.rowIndex="2" image="${controller.model.images[6]}"
+                           onMouseClicked="#positionClicked"/>
+                <ImageView id="imageView8" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                           image="${controller.model.images[7]}" onMouseClicked="#positionClicked"/>
+                <ImageView id="imageView9" GridPane.columnIndex="2" GridPane.rowIndex="2"
+                           image="${controller.model.images[8]}" onMouseClicked="#positionClicked"/>
                 <columnConstraints>
                     <ColumnConstraints/>
                     <ColumnConstraints/>
@@ -54,7 +60,5 @@
                 </rowConstraints>
             </GridPane>
         </center>
-
     </BorderPane>
-
 </HBox>

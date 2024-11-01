@@ -32,7 +32,7 @@ public class Model {
     Image empty;
     Random random;
 
-    public Model (Random random) {
+    public Model(Random random) {
         this.random = random;
         currentPlayers.addAll(Arrays.asList(PLAYER1, NPC));
         currentPlayer = randomizeStartingPlayer();
@@ -136,33 +136,25 @@ public class Model {
     public void selectedPosition(Position position) {
         if (position == FIRST && images.getFirst() == empty) {
             placeCrossOrCircle(0);
-        }
-        else if (position == SECOND && images.get(1) == empty) {
+        } else if (position == SECOND && images.get(1) == empty) {
             placeCrossOrCircle(1);
-        }
-        else if (position == THIRD && images.get(2) == empty) {
+        } else if (position == THIRD && images.get(2) == empty) {
             placeCrossOrCircle(2);
-        }
-        else if (position == FOURTH && images.get(3) == empty) {
+        } else if (position == FOURTH && images.get(3) == empty) {
             placeCrossOrCircle(3);
-        }
-        else if (position == FIFTH && images.get(4) == empty) {
+        } else if (position == FIFTH && images.get(4) == empty) {
             placeCrossOrCircle(4);
-        }
-        else if (position == SIXTH && images.get(5) == empty) {
+        } else if (position == SIXTH && images.get(5) == empty) {
             placeCrossOrCircle(5);
-        }
-        else if (position == SEVENTH && images.get(6) == empty) {
+        } else if (position == SEVENTH && images.get(6) == empty) {
             placeCrossOrCircle(6);
-        }
-        else if (position == EIGHTH && images.get(7) == empty) {
+        } else if (position == EIGHTH && images.get(7) == empty) {
             placeCrossOrCircle(7);
-        }
-        else if (position == NINTH && images.get(8) == empty) {
+        } else if (position == NINTH && images.get(8) == empty) {
             placeCrossOrCircle(8);
         }
 
-        availablePositions.removeIf(pos->pos.equals(position));
+        availablePositions.removeIf(pos -> pos.equals(position));
         checkWinning();
         switchPlayer();
     }
@@ -178,8 +170,7 @@ public class Model {
     private void switchPlayer() {
         if (currentPlayer.equals(PLAYER1)) {
             currentPlayer = NPC;
-        }
-        else if (currentPlayer.equals(NPC)) {
+        } else if (currentPlayer.equals(NPC)) {
             currentPlayer = PLAYER1;
         }
     }
@@ -187,8 +178,7 @@ public class Model {
     public void checkWinning() {
         if (winningConditionsCross() || winningConditionsCircle()) {
             addScore();
-        }
-        else if (getAvailablePositions().isEmpty()) {
+        } else if (getAvailablePositions().isEmpty()) {
             setResult("Draw!");
             gameState = GAME_OVER;
         }

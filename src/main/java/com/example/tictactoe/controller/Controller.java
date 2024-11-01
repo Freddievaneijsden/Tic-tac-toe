@@ -1,7 +1,5 @@
 package com.example.tictactoe.controller;
 
-import com.example.tictactoe.GameState;
-import com.example.tictactoe.Players;
 import com.example.tictactoe.Position;
 import com.example.tictactoe.model.Model;
 import javafx.animation.KeyFrame;
@@ -13,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
-import javax.xml.transform.Source;
 import java.util.Random;
 
 import static com.example.tictactoe.GameState.*;
@@ -61,18 +58,18 @@ public class Controller {
         return model;
     }
 
-    public void restartClicked (MouseEvent mouseEvent) {
+    public void restartClicked(MouseEvent mouseEvent) {
         model.resetGame();
     }
 
-    public void positionClicked (MouseEvent mouseEvent) {
+    public void positionClicked(MouseEvent mouseEvent) {
         Node source = (Node) mouseEvent.getSource();
-        String id= source.getId();
+        String id = source.getId();
 
         Position position = checkPosition(id);
         if (model.getCurrentPlayer().equals(PLAYER1)) {
             model.selectedPosition(position);
-            }
+        }
     }
 
     private static Position checkPosition(String id) {
