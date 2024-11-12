@@ -193,7 +193,6 @@ public class Model {
                 setResult("Player 1 Wins!");
             } else if (winningConditionsCircle()) {
                 gameState = GAME_OVER;
-                System.out.println("Test");
                 score2++;
                 setScorePlayer2(score2 + " points");
                 setResult("Player 2 Wins!");
@@ -210,20 +209,20 @@ public class Model {
     }
 
     private boolean checkRows(Image crossOrCircle) {
-        return (images.get(0) == crossOrCircle && images.get(1) == crossOrCircle && images.get(2) == crossOrCircle)
-                || (images.get(3) == crossOrCircle && images.get(4) == crossOrCircle && images.get(5) == crossOrCircle)
-                || (images.get(6) == crossOrCircle && images.get(7) == crossOrCircle && images.get(8) == crossOrCircle);
+        return ((images.get(0).equals(crossOrCircle) && images.get(1).equals(crossOrCircle) && images.get(2).equals(crossOrCircle))
+                || (images.get(3).equals(crossOrCircle) && images.get(4).equals(crossOrCircle) && images.get(5).equals(crossOrCircle))
+                || (images.get(6).equals(crossOrCircle) && images.get(7).equals(crossOrCircle) && images.get(8).equals(crossOrCircle)));
     }
 
     private boolean checkColumns(Image crossOrCircle) {
-        return (images.get(0) == crossOrCircle && images.get(3) == crossOrCircle && images.get(6) == crossOrCircle)
-                || (images.get(1) == crossOrCircle && images.get(4) == crossOrCircle && images.get(7) == crossOrCircle)
-                || (images.get(2) == crossOrCircle && images.get(5) == crossOrCircle && images.get(8) == crossOrCircle);
+        return ((images.get(0).equals(crossOrCircle)) && images.get(3).equals(crossOrCircle) && images.get(6).equals(crossOrCircle))
+                || (images.get(1).equals(crossOrCircle) && images.get(4).equals(crossOrCircle) && images.get(7).equals(crossOrCircle))
+                || (images.get(2).equals(crossOrCircle) && images.get(5).equals(crossOrCircle) && images.get(8).equals(crossOrCircle));
     }
 
     private boolean checkDiagonal(Image crossOrCircle) {
-        return ((images.get(0) == crossOrCircle && images.get(4) == crossOrCircle && images.get(8) == crossOrCircle)
-                || (images.get(2) == crossOrCircle && images.get(4) == crossOrCircle && images.get(6) == crossOrCircle));
+        return ((images.get(0).equals(crossOrCircle) && images.get(4).equals(crossOrCircle) && images.get(8).equals(crossOrCircle))
+                || (images.get(2).equals(crossOrCircle) && images.get(4).equals(crossOrCircle) && images.get(6).equals(crossOrCircle)));
     }
 
     public void resetGame() {
